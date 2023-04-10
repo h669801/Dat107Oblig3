@@ -12,6 +12,7 @@ public class Main {
 
 	public static void main(String[] args) {
 		AnsattDAO ansattDAO = new AnsattDAO();
+		AvdelingDAO avdelingDAO = new AvdelingDAO();
 		Scanner scanner = new Scanner(System.in);
 		int menyvalg = scanner.nextInt();
 		
@@ -23,7 +24,8 @@ public class Main {
             System.out.println("3 - Finn alle ansatte");
             System.out.println("4 - Legg til ny ansatt");
             System.out.println("5 - Oppdater ansatt");
-            System.out.println("6 - Avslutt programmet");
+            System.out.println("6 - Finn avdeling med avdeling-ID");
+            System.out.println("7 - Avslutt programmet");
 
             int valg = scanner.nextInt();
 
@@ -76,9 +78,10 @@ public class Main {
                     String avdeling = scanner.next();
                     System.out.println("prosjekt:");
                     String prosjekt = scanner.next();
-                    int id3 = 5;
+                    int id3 = 11;
                     Ansatt nyAnsatt = new Ansatt(id3, nyttBrukernavn, fornavn, etternavn, ansettelsesdato, stilling, lønn, avdeling, prosjekt);
                     ansattDAO.leggTilAnsatt(nyAnsatt);
+                    id3++;
                     System.out.println("Ny ansatt lagt til i databasen.");
                     break;
                 case 5:
@@ -102,6 +105,16 @@ public class Main {
                         System.out.println("Ansatt oppdatert.");
                     }
                 case 6:
+                	System.out.println("Skriv inn avdeling ID:");
+                    int avdId = scanner.nextInt();
+                    Avdeling avdelingMedId = avdelingDAO.finnAvdelingMedId(avdId);
+                    if (avdelingMedId != null) {
+                        System.out.println(avdelingMedId);
+                    } else {
+                        System.out.println("Fant ingen ansatt med ID " + avdId);
+                    }
+                    break;
+                case 7:
                 	System.out.println("avslutter...");
                 	fortsett = false;
                 	System.out.println("programmet er avsluttet.");
