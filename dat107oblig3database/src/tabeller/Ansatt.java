@@ -1,10 +1,14 @@
 package tabeller;
 
+import java.sql.Date;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
 
 @Entity
 @Table(schema = "obl3")
@@ -80,7 +84,10 @@ public class Ansatt {
 	private String brukernavn;
 	private String fornavn;
 	private String etternavn;
-	private String ansettelsesdato;
+	
+//	@Temporal(TemporalType.DATE)
+	private java.sql.Date ansettelsesdato;
+	
 	private String stilling;
 	private int maanedslonn;
 //	private String avdeling;
@@ -90,7 +97,7 @@ public class Ansatt {
 		
 	}
 	
-	public Ansatt(String brukernavn, String fornavn, String etternavn, String ansettelsesdato, String stilling, int maanedslonn) {
+	public Ansatt(String brukernavn, String fornavn, String etternavn, java.sql.Date ansettelsesdato, String stilling, int maanedslonn) {
 		this.brukernavn = brukernavn;
 		this.fornavn = fornavn;
 		this.etternavn = etternavn;
@@ -132,11 +139,11 @@ public class Ansatt {
 		this.etternavn = etternavn;
 	}
 
-	public String getDato() {
+	public java.sql.Date getDato() {
 		return ansettelsesdato;
 	}
 
-	public void setDato(String dato) {
+	public void setDato(Date dato) {
 		this.ansettelsesdato = dato;
 	}
 	

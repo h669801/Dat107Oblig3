@@ -19,33 +19,37 @@ public class Avdeling {
 //	DROP SCHEMA IF EXISTS Obl3 CASCADE;
 //	CREATE SCHEMA Obl3;
 //	SET search_path TO Obl3;
-	
+
 //	CREATE TABLE Avdeling (
 //			id SERIAL PRIMARY KEY,
 //			fornavn VARCHAR(35) NOT NULL,
 //			etternavn VARCHAR (35) NOT NULL,
 //			avdeling VARCHAR(50) NOT NULL
 //				);
-	
+
 //	ALTER TABLE Avdeling 
 //	ADD CONSTRAINT fk_sjef 
 //	FOREIGN KEY (sjef_id) 
 //	REFERENCES Ansatt (id);
-	
-	@Id private Integer avdeling_id;
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer avdeling_id;
+
 	private String avdelingsnavn;
 	private String sjef_id;
-	
+
 	public Avdeling() {
-		
+
 	}
 
-    public Avdeling(int avdeling_id, String avdelingsnavn, String sjef_id) {
-		super();
-		this.avdeling_id = avdeling_id;
+	public Avdeling(String avdelingsnavn, String sjef_id) {
+//		super();
+//		this.avdeling_id = avdeling_id;
 		this.avdelingsnavn = avdelingsnavn;
 		this.sjef_id = sjef_id;
 	}
+
 	public int getId() {
 		return avdeling_id;
 	}
@@ -61,7 +65,7 @@ public class Avdeling {
 	public void setavdelingsnavn(String avdelingsnavn) {
 		this.avdelingsnavn = avdelingsnavn;
 	}
-	
+
 //	public String getEtterNavn() {
 //		return etternavn;
 //	}

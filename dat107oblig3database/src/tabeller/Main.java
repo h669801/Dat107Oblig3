@@ -1,5 +1,10 @@
 package tabeller;
 
+import java.math.BigDecimal;
+import java.sql.Date;
+import java.sql.ResultSet;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
@@ -10,7 +15,7 @@ import jakarta.persistence.Persistence;
 
 public class Main {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws ParseException {
 		AnsattDAO ansattDAO = new AnsattDAO();
 		AvdelingDAO avdelingDAO = new AvdelingDAO();
 		Scanner scanner = new Scanner(System.in);
@@ -69,15 +74,21 @@ public class Main {
                     System.out.println("Brukernavn:");
                     String nyttBrukernavn = scanner.next();
                     System.out.println("ansettelsesdato:");
-                    String ansettelsesdato = scanner.next();
+                    System.out.println("på formatet : " + "yyyy-dd-MM");
+                    String ansettelsesdato1 = scanner.next();
+//                    Date ansettelsesdato = Date.valueOf(ansettelsesdato1);
+                    java.sql.Date ansettelsesdato = java.sql.Date.valueOf(ansettelsesdato1);
+//                    String dateFormat = "yyyy-dd-MM";
+//                    java.sql.Date ansettelsesdato=(Date) new SimpleDateFormat("yyyy-dd-MM").parse(dato1);
                     System.out.println("Stilling:");
                     String stilling = scanner.next();
                     System.out.println("Lønn:");
                     int lønn = scanner.nextInt();
-                    System.out.println("avdeling:");
-                    String avdeling = scanner.next();
-                    System.out.println("prosjekt:");
-                    String prosjekt = scanner.next();
+//                    BigDecimal lønn = ResultSet.getBigDecimal();
+//                    System.out.println("avdeling:");
+//                    String avdeling = scanner.next();
+//                    System.out.println("prosjekt:");
+//                    String prosjekt = scanner.next();
                     Ansatt nyAnsatt = new Ansatt(nyttBrukernavn, fornavn, etternavn, ansettelsesdato, stilling, lønn);
                     ansattDAO.leggTilAnsatt(nyAnsatt);
                     System.out.println("Ny ansatt lagt til i databasen.");
