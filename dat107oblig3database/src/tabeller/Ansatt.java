@@ -1,6 +1,8 @@
 package tabeller;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
@@ -72,7 +74,9 @@ public class Ansatt {
 //	(3, 'avdeling3');
 	
 	
-    @Id private Integer ansatt_id;
+    @Id 
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer ansatt_id;
 	private String brukernavn;
 	private String fornavn;
 	private String etternavn;
@@ -86,8 +90,7 @@ public class Ansatt {
 		
 	}
 	
-	public Ansatt(Integer ansatt_id, String brukernavn, String fornavn, String etternavn, String ansettelsesdato, String stilling, int maanedslonn) {
-		this.ansatt_id = ansatt_id;
+	public Ansatt(String brukernavn, String fornavn, String etternavn, String ansettelsesdato, String stilling, int maanedslonn) {
 		this.brukernavn = brukernavn;
 		this.fornavn = fornavn;
 		this.etternavn = etternavn;

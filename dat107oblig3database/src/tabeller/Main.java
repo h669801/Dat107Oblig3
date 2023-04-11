@@ -78,10 +78,8 @@ public class Main {
                     String avdeling = scanner.next();
                     System.out.println("prosjekt:");
                     String prosjekt = scanner.next();
-                    int id3 = 11;
-                    Ansatt nyAnsatt = new Ansatt(id3, nyttBrukernavn, fornavn, etternavn, ansettelsesdato, stilling, lønn);
+                    Ansatt nyAnsatt = new Ansatt(nyttBrukernavn, fornavn, etternavn, ansettelsesdato, stilling, lønn);
                     ansattDAO.leggTilAnsatt(nyAnsatt);
-                    id3++;
                     System.out.println("Ny ansatt lagt til i databasen.");
                     break;
                 case 5:
