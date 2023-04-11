@@ -17,13 +17,13 @@ public class AnsattDAO {
 		emf = Persistence.createEntityManagerFactory("ansattPersistenceUnit");
 	}
 
-	public Ansatt finnAnsattMedId(int id) {
+	public Ansatt finnAnsattMedId(int ansatt_id) {
 
 		System.out.println("Kobler til database...");
 		EntityManager em = emf.createEntityManager();
 
 		try {
-			return em.find(Ansatt.class, id);
+			return em.find(Ansatt.class, ansatt_id);
 		} finally {
 			em.close();
 		}

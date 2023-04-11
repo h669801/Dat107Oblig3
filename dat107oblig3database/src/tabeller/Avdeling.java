@@ -32,41 +32,43 @@ public class Avdeling {
 //	FOREIGN KEY (sjef_id) 
 //	REFERENCES Ansatt (id);
 	
-	@Id private Integer id;
-	private String fornavn;
-	private String etternavn;
-	private String sjef;
+	@Id private Integer avdeling_id;
+	private String avdelingsnavn;
+	private String sjef_id;
+	
+	public Avdeling() {
+		
+	}
 
-    public Avdeling(int id, String fornavn, String etternavn, String sjef) {
+    public Avdeling(int avdeling_id, String avdelingsnavn, String sjef_id) {
 		super();
-		this.id = id;
-		this.fornavn = fornavn;
-		this.etternavn = etternavn;
-		this.sjef = sjef;
+		this.avdeling_id = avdeling_id;
+		this.avdelingsnavn = avdelingsnavn;
+		this.sjef_id = sjef_id;
 	}
 	public int getId() {
-		return id;
+		return avdeling_id;
 	}
 
 	public void setId(int id) {
-		this.id = id;
+		this.avdeling_id = id;
 	}
 
-	public String getForNavn() {
-		return fornavn;
+	public String getavdelingsnavn() {
+		return avdelingsnavn;
 	}
 
-	public void setForNavn(String fornavn) {
-		this.fornavn = fornavn;
+	public void setavdelingsnavn(String avdelingsnavn) {
+		this.avdelingsnavn = avdelingsnavn;
 	}
 	
-	public String getEtterNavn() {
-		return etternavn;
-	}
-
-	public void setEtterNavn(String etternavn) {
-		this.etternavn = etternavn;
-	}
+//	public String getEtterNavn() {
+//		return etternavn;
+//	}
+//
+//	public void setEtterNavn(String etternavn) {
+//		this.etternavn = etternavn;
+//	}
 
 //	public List<Ansatt> getAnsatte() {
 //		return ansatte;
@@ -77,10 +79,10 @@ public class Avdeling {
 //	}
 
 	public String getSjef() {
-		return sjef;
+		return sjef_id;
 	}
 
-	public void setSjef(String sjef) {
-		this.sjef = sjef;
+	public void setSjef(String sjef_id) {
+		this.sjef_id = sjef_id;
 	}
 }

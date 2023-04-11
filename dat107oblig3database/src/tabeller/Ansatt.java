@@ -72,37 +72,37 @@ public class Ansatt {
 //	(3, 'avdeling3');
 	
 	
-    @Id private Integer id;
+    @Id private Integer ansatt_id;
 	private String brukernavn;
 	private String fornavn;
 	private String etternavn;
 	private String ansettelsesdato;
 	private String stilling;
 	private int maanedslonn;
-	private String avdeling;
-	private String prosjekt;
+//	private String avdeling;
+//	private String prosjekt;
 	
 	public Ansatt() {
 		
 	}
 	
-	public Ansatt(Integer id, String brukernavn, String fornavn, String etternavn, String ansettelsesdato, String stilling, int maanedslonn, String avdeling, String prosjekt) {
-		this.id = id;
+	public Ansatt(Integer ansatt_id, String brukernavn, String fornavn, String etternavn, String ansettelsesdato, String stilling, int maanedslonn) {
+		this.ansatt_id = ansatt_id;
 		this.brukernavn = brukernavn;
 		this.fornavn = fornavn;
 		this.etternavn = etternavn;
 		this.ansettelsesdato = ansettelsesdato;
 		this.stilling = stilling;
-		this.avdeling = avdeling;
-		this.prosjekt = prosjekt;
+//		this.avdeling = avdeling;
+//		this.prosjekt = prosjekt;
 	}
 
 	public Integer getId() {
-		return id;
+		return ansatt_id;
 	}
 
-	public void setId(Integer id) {
-		this.id = id;
+	public void setId(Integer ansatt_id) {
+		this.ansatt_id = ansatt_id;
 	}
 
 	public String getBrukernavn() {
@@ -153,30 +153,29 @@ public class Ansatt {
 		this.maanedslonn = maanedslonn;
 	}
 
-	public String getAvdeling() {
-		return avdeling;
-	}
-
-	public void setAvdeling(String avdeling) {
-		this.avdeling = avdeling;
-	}
-
-	public String getProsjekt() {
-		return prosjekt;
-	}
-
-	public void setProsjekt(String prosjekt) {
-		this.prosjekt = prosjekt;
-	}
+//	public String getAvdeling() {
+//		return avdeling;
+//	}
+//
+//	public void setAvdeling(String avdeling) {
+//		this.avdeling = avdeling;
+//	}
+//
+//	public String getProsjekt() {
+//		return prosjekt;
+//	}
+//
+//	public void setProsjekt(String prosjekt) {
+//		this.prosjekt = prosjekt;
+//	}
 	
 //	public void skrivUt() {
 //		System.out.println("Id :" + id)
 //	}
 
 	  public String toString() {
-		return "Ansatt [id=" + id + ", brukernavn=" + brukernavn + ", fornavn=" + fornavn + ", etternavn=" + etternavn
-				+ ", dato=" + ansettelsesdato + ", maanedslonn=" + maanedslonn + ", avdeling=" + avdeling + ", prosjekt="
-				+ prosjekt + "]";
+		return "Ansatt [id=" + ansatt_id + ", brukernavn=" + brukernavn + ", fornavn=" + fornavn + ", etternavn=" + etternavn
+				+ ", dato=" + ansettelsesdato + ", maanedslonn=" + maanedslonn + "]";
 	}
 	  public void skrivUt() {
 		  System.out.println(toString());
