@@ -111,7 +111,7 @@ public class Main {
                     if (avdelingMedId != null) {
                         System.out.println(avdelingMedId);
                     } else {
-                        System.out.println("Fant ingen ansatt med ID " + avdId);
+                        System.out.println("Fant ingen avdeling med ID " + avdId);
                     }
                     break;
                 case 7:
