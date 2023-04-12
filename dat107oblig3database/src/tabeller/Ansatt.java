@@ -6,6 +6,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
@@ -80,7 +82,7 @@ public class Ansatt {
 	
     @Id 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer ansatt_id;
+    private Integer id;
 	private String brukernavn;
 	private String fornavn;
 	private String etternavn;
@@ -88,8 +90,12 @@ public class Ansatt {
 //	@Temporal(TemporalType.DATE)
 	private java.sql.Date ansettelsesdato;
 	
+	@ManyToOne
+    @JoinColumn(name = "Avd_id")
+    private Avdeling avdeling;
+	
 	private String stilling;
-	private int maanedslonn;
+	private Double maanedslonn;
 //	private String avdeling;
 //	private String prosjekt;
 	
@@ -97,22 +103,22 @@ public class Ansatt {
 		
 	}
 	
-	public Ansatt(String brukernavn, String fornavn, String etternavn, java.sql.Date ansettelsesdato, String stilling, int maanedslonn) {
+	public Ansatt(String brukernavn, String fornavn, String etternavn, java.sql.Date ansettelsesdato, String stilling, Double maanedslonn, Avdeling avdeling) {
 		this.brukernavn = brukernavn;
 		this.fornavn = fornavn;
 		this.etternavn = etternavn;
 		this.ansettelsesdato = ansettelsesdato;
 		this.stilling = stilling;
-//		this.avdeling = avdeling;
+		this.avdeling = avdeling;
 //		this.prosjekt = prosjekt;
 	}
 
 	public Integer getId() {
-		return ansatt_id;
+		return id;
 	}
 
-	public void setId(Integer ansatt_id) {
-		this.ansatt_id = ansatt_id;
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
 	public String getBrukernavn() {
@@ -155,21 +161,21 @@ public class Ansatt {
 		this.stilling = stilling;
 	}
 
-	public int getMaanedslonn() {
+	public Double getMaanedslonn() {
 		return maanedslonn;
 	}
 
-	public void setMaanedslonn(int maanedslonn) {
+	public void setMaanedslonn(Double maanedslonn) {
 		this.maanedslonn = maanedslonn;
 	}
 
-//	public String getAvdeling() {
-//		return avdeling;
-//	}
-//
-//	public void setAvdeling(String avdeling) {
-//		this.avdeling = avdeling;
-//	}
+	public Avdeling getAvdeling() {
+		return avdeling;
+	}
+
+	public void setAvdeling(Avdeling avdeling) {
+		this.avdeling = avdeling;
+	}
 //
 //	public String getProsjekt() {
 //		return prosjekt;
@@ -182,9 +188,17 @@ public class Ansatt {
 //	public void skrivUt() {
 //		System.out.println("Id :" + id)
 //	}
+	
+//	public Integer getSjef() {
+//		return sjef_id;
+//	}
+//
+//	public void setSjef(Integer sjef_id) {
+//		this.sjef_id = sjef_id;
+//	}
 
 	  public String toString() {
-		return "Ansatt [id=" + ansatt_id + ", brukernavn=" + brukernavn + ", fornavn=" + fornavn + ", etternavn=" + etternavn
+		return "Ansatt [id=" + id + ", brukernavn=" + brukernavn + ", fornavn=" + fornavn + ", etternavn=" + etternavn
 				+ ", dato=" + ansettelsesdato + ", maanedslonn=" + maanedslonn + "]";
 	}
 	  public void skrivUt() {

@@ -75,13 +75,23 @@ public class AnsattDAO {
 		}
 	}
 
-	public void leggTilAnsatt(Ansatt ansatt) {
+	public void leggTilAnsatt(String brukernavn, String fornavn, String etternavn, java.sql.Date ansettelsesdato, String stilling, Double maanedslonn, Avdeling avdeling) {
 		EntityManager em = emf.createEntityManager();
 		EntityTransaction tx = em.getTransaction();
 
+		Ansatt ansatt = null;
+		
 		try {
 			tx.begin();
+			
+			ansatt = new Ansatt(brukernavn, fornavn, etternavn,ansettelsesdato,stilling, maanedslonn, avdeling);
+			
 			em.persist(ansatt);
+			
+//			Avdeling avdeling1 = new Avdeling();
+			avdeling.leggTilAnsatt(ansatt);
+			em.merge(avdeling);
+			
 			tx.commit();
 		} catch (Throwable e) {
 			e.printStackTrace();
@@ -92,4 +102,13 @@ public class AnsattDAO {
 			em.close();
 		}
 	}
+	
+	public Avdeling finnAvdeling(int id) {
+        EntityManager em = emf.createEntityManager();
+        try {
+            return em.find(Avdeling.class, id);
+        } finally {
+            em.close();
+        }
+    }
 }

@@ -83,14 +83,20 @@ public class Main {
                     System.out.println("Stilling:");
                     String stilling = scanner.next();
                     System.out.println("Lønn:");
-                    int lønn = scanner.nextInt();
+//                    Double lønn = scanner.nextDouble();
+                    String inputString = scanner.next();
+                    Double lønn = Double.parseDouble(inputString);
 //                    BigDecimal lønn = ResultSet.getBigDecimal();
-//                    System.out.println("avdeling:");
+                    System.out.println("avdeling:");
 //                    String avdeling = scanner.next();
+                    int id2 = scanner.nextInt();
+                    Avdeling avdeling = ansattDAO.finnAvdeling(id2);
+//                    String p = avdeling1;
+//                    Avdeling avdeling = p;
 //                    System.out.println("prosjekt:");
 //                    String prosjekt = scanner.next();
-                    Ansatt nyAnsatt = new Ansatt(nyttBrukernavn, fornavn, etternavn, ansettelsesdato, stilling, lønn);
-                    ansattDAO.leggTilAnsatt(nyAnsatt);
+//                    Ansatt nyAnsatt = new Ansatt(nyttBrukernavn, fornavn, etternavn, ansettelsesdato, stilling, lønn, avdeling);
+                    ansattDAO.leggTilAnsatt(nyttBrukernavn, fornavn, etternavn, ansettelsesdato, stilling, lønn, avdeling);
                     System.out.println("Ny ansatt lagt til i databasen.");
                     break;
                 case 5:
@@ -103,7 +109,9 @@ public class Main {
                         System.out.println("Skriv inn den nye stillingen:");
                         String nyStilling = scanner.next();
                         System.out.println("Skriv inn ny lønn: ");
-                        int lonn = scanner.nextInt();
+//                        Double lonn = scanner.nextDouble();
+                        String inputString1 = scanner.next();
+                        Double lonn = Double.parseDouble(inputString1);
                         if (!nyStilling.equals(oppdaterAnsatt.getStilling())) {
                         	oppdaterAnsatt.setStilling(nyStilling);
                         }
@@ -113,6 +121,7 @@ public class Main {
                         ansattDAO.oppdaterAnsatt(oppdaterAnsatt);
                         System.out.println("Ansatt oppdatert.");
                     }
+                    break;
                 case 6:
                 	System.out.println("Skriv inn avdeling ID:");
                     int avdId = scanner.nextInt();

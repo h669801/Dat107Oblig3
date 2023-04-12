@@ -1,5 +1,6 @@
 package tabeller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.CascadeType;
@@ -8,6 +9,7 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
@@ -34,10 +36,18 @@ public class Avdeling {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer avdeling_id;
+	private Integer id;
 
 	private String avdelingsnavn;
-	private String sjef_id;
+//	private String sjef_id;
+	
+	@OneToOne
+    @JoinColumn(name = "sjef_id")
+    private Ansatt sjef_id;
+	
+	
+	@OneToMany(mappedBy="avdeling")
+    private List<Ansatt> ansatte = new ArrayList<>();
 
 	public Avdeling() {
 
@@ -47,15 +57,21 @@ public class Avdeling {
 //		super();
 //		this.avdeling_id = avdeling_id;
 		this.avdelingsnavn = avdelingsnavn;
-		this.sjef_id = sjef_id;
+//		this.sjef_id = sjef_id;
 	}
+	
+	
+	public void leggTilAnsatt(Ansatt ansatt) {
+        ansatte.add(ansatt);
+        ansatt.setAvdeling(this);
+    }
 
 	public int getId() {
-		return avdeling_id;
+		return id;
 	}
 
 	public void setId(int id) {
-		this.avdeling_id = id;
+		this.id = id;
 	}
 
 	public String getavdelingsnavn() {
@@ -82,11 +98,11 @@ public class Avdeling {
 //		this.ansatte = ansatte;
 //	}
 
-	public String getSjef() {
+	public Ansatt getSjef() {
 		return sjef_id;
 	}
 
-	public void setSjef(String sjef_id) {
+	public void setSjef(Ansatt sjef_id) {
 		this.sjef_id = sjef_id;
 	}
 }
