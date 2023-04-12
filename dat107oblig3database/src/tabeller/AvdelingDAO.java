@@ -8,18 +8,17 @@ import jakarta.persistence.Persistence;
 import jakarta.persistence.TypedQuery;
 
 public class AvdelingDAO {
-//	private EntityManager em;
 	private EntityManagerFactory emf = Persistence.createEntityManagerFactory("ansattPersistenceUnit");
 
 	public AvdelingDAO() {
-	    emf = Persistence.createEntityManagerFactory("ansattPersistenceUnit");
+		emf = Persistence.createEntityManagerFactory("ansattPersistenceUnit");
 	}
 
 	public Avdeling finnAvdelingMedId(int id) {
 		EntityManager em = emf.createEntityManager();
-	    return em.find(Avdeling.class, id);
+		return em.find(Avdeling.class, id);
 	}
-	
+
 	public List<Avdeling> finnAlleAvdelinger() {
 
 		EntityManager em = emf.createEntityManager();

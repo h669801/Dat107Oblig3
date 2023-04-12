@@ -2,8 +2,6 @@ package tabeller;
 
 import java.util.List;
 
-//import javax.management.Query;
-
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.EntityTransaction;
@@ -35,11 +33,8 @@ public class AnsattDAO {
 		try {
 			TypedQuery<Ansatt> query = em.createQuery("SELECT a FROM Ansatt a WHERE a.brukernavn LIKE :brukernavn",
 					Ansatt.class);
-//			TypedQuery<Ansatt> query = em.createQuery("select a FROM Ansatt WHERE a.brukernavn like '%brukernavn%' and a.brukernavn like '%brukernavn%'",
-//					Ansatt.class);
-			
+
 			query.setParameter("brukernavn", "%" + brukernavn + "%");
-//			Ansatt ansatt = (Ansatt) query.getSingleResult();
 			return query.getResultList();
 		} finally {
 			em.close();
@@ -78,23 +73,23 @@ public class AnsattDAO {
 		}
 	}
 
-	public void leggTilAnsatt(String brukernavn, String fornavn, String etternavn, java.sql.Date ansettelsesdato, String stilling, Double maanedslonn, Avdeling avdeling) {
+	public void leggTilAnsatt(String brukernavn, String fornavn, String etternavn, java.sql.Date ansettelsesdato,
+			String stilling, Double maanedslonn, Avdeling avdeling) {
 		EntityManager em = emf.createEntityManager();
 		EntityTransaction tx = em.getTransaction();
 
 		Ansatt ansatt = null;
-		
+
 		try {
 			tx.begin();
-			
-			ansatt = new Ansatt(brukernavn, fornavn, etternavn,ansettelsesdato,stilling, maanedslonn, avdeling);
-			
+
+			ansatt = new Ansatt(brukernavn, fornavn, etternavn, ansettelsesdato, stilling, maanedslonn, avdeling);
+
 			em.persist(ansatt);
-			
-//			Avdeling avdeling1 = new Avdeling();
+
 			avdeling.leggTilAnsatt(ansatt);
 			em.merge(avdeling);
-			
+
 			tx.commit();
 		} catch (Throwable e) {
 			e.printStackTrace();
@@ -105,13 +100,13 @@ public class AnsattDAO {
 			em.close();
 		}
 	}
-	
+
 	public Avdeling finnAvdeling(int id) {
-        EntityManager em = emf.createEntityManager();
-        try {
-            return em.find(Avdeling.class, id);
-        } finally {
-            em.close();
-        }
-    }
+		EntityManager em = emf.createEntityManager();
+		try {
+			return em.find(Avdeling.class, id);
+		} finally {
+			em.close();
+		}
+	}
 }
