@@ -44,8 +44,7 @@ public class Avdeling {
 	@OneToOne
     @JoinColumn(name = "sjef_id")
     private Ansatt sjef_id;
-	
-	
+
 	@OneToMany(mappedBy="avdeling")
     private List<Ansatt> ansatte = new ArrayList<>();
 
@@ -90,13 +89,13 @@ public class Avdeling {
 //		this.etternavn = etternavn;
 //	}
 
-//	public List<Ansatt> getAnsatte() {
-//		return ansatte;
-//	}
-//
-//	public void setAnsatte(List<Ansatt> ansatte) {
-//		this.ansatte = ansatte;
-//	}
+	public List<Ansatt> getAnsatte() {
+		return ansatte;
+	}
+
+	public void setAnsatte(List<Ansatt> ansatte) {
+		this.ansatte = ansatte;
+	}
 
 	public Ansatt getSjef() {
 		return sjef_id;
@@ -105,4 +104,19 @@ public class Avdeling {
 	public void setSjef(Ansatt sjef_id) {
 		this.sjef_id = sjef_id;
 	}
+	
+	public void skrivUtMedAnsatte() {
+        skrivUt();
+        ansatte.forEach(Ansatt::skrivUt);
+    }
+	
+	public void skrivUt() {
+        System.out.printf(" Avdeling %d(%s): %d ansatte, sjef = %s%n", 
+                id, avdelingsnavn, ansatte.size(), sjef_id);
+    }
+	
+//	public String toString() {
+//		return "Avdeling [id=" + id + ", avdelingsnavn=" + avdelingsnavn + ", sjef_id=" + sjef_id + ", ansatte="
+//				+ ansatte + "]";
+//	}
 }

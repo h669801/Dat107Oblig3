@@ -29,15 +29,18 @@ public class AnsattDAO {
 		}
 	}
 
-	public Ansatt finnAnsattMedbrukernavn(String brukernavn) {
+	public List<Ansatt> finnAnsattMedbrukernavn(String brukernavn) {
 
 		EntityManager em = emf.createEntityManager();
 		try {
-			TypedQuery<Ansatt> query = em.createQuery("SELECT a FROM Ansatt a WHERE a.brukernavn = :brukernavn",
+			TypedQuery<Ansatt> query = em.createQuery("SELECT a FROM Ansatt a WHERE a.brukernavn LIKE :brukernavn",
 					Ansatt.class);
-			query.setParameter("brukernavn", brukernavn);
-			Ansatt ansatt = (Ansatt) query.getSingleResult();
-			return ansatt;
+//			TypedQuery<Ansatt> query = em.createQuery("select a FROM Ansatt WHERE a.brukernavn like '%brukernavn%' and a.brukernavn like '%brukernavn%'",
+//					Ansatt.class);
+			
+			query.setParameter("brukernavn", "%" + brukernavn + "%");
+//			Ansatt ansatt = (Ansatt) query.getSingleResult();
+			return query.getResultList();
 		} finally {
 			em.close();
 		}

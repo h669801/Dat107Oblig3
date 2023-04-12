@@ -30,7 +30,9 @@ public class Main {
             System.out.println("4 - Legg til ny ansatt");
             System.out.println("5 - Oppdater ansatt");
             System.out.println("6 - Finn avdeling med avdeling-ID");
-            System.out.println("7 - Avslutt programmet");
+            System.out.println("7 - Finn ansatte i avdeling med avdeling-ID");
+            System.out.println("8 - Oppdater ansatt i avdeling med ansatt-ID");
+            System.out.println("9 - Avslutt programmet");
 
             int valg = scanner.nextInt();
 
@@ -46,13 +48,20 @@ public class Main {
                     }
                     break;
                 case 2:
-                    System.out.println("Skriv inn brukernavn:");
+                    System.out.println("Skriv inn brukernavn på formen (navn.navn eller navn.n) : ");
                     String brukernavn = scanner.next();
-                    Ansatt ansattMedBrukernavn = ansattDAO.finnAnsattMedbrukernavn(brukernavn);
-                    if (ansattMedBrukernavn != null) {
-                        System.out.println(ansattMedBrukernavn);
+                    List<Ansatt> ansattMedBrukernavn = ansattDAO.finnAnsattMedbrukernavn(brukernavn);
+//                    if (ansattMedBrukernavn != null) {
+//                        System.out.println(ansattMedBrukernavn);
+//                    } else {
+//                        System.out.println("Fant ingen ansatt med brukernavn " + brukernavn);
+//                    }
+                    if (ansattMedBrukernavn.isEmpty()) {
+                        System.out.println("Ingen ansatte registrert.");
                     } else {
-                        System.out.println("Fant ingen ansatt med brukernavn " + brukernavn);
+                        for (Ansatt ansatt : ansattMedBrukernavn) {
+                            System.out.println(ansatt);
+                        }
                     }
                     break;
                 case 3:
@@ -73,8 +82,7 @@ public class Main {
                     String etternavn = scanner.next();
                     System.out.println("Brukernavn:");
                     String nyttBrukernavn = scanner.next();
-                    System.out.println("ansettelsesdato:");
-                    System.out.println("på formatet : " + "yyyy-dd-MM");
+                    System.out.println("ansettelsesdato på formatet (yyyy-MM-dd) : ");
                     String ansettelsesdato1 = scanner.next();
 //                    Date ansettelsesdato = Date.valueOf(ansettelsesdato1);
                     java.sql.Date ansettelsesdato = java.sql.Date.valueOf(ansettelsesdato1);
@@ -125,14 +133,25 @@ public class Main {
                 case 6:
                 	System.out.println("Skriv inn avdeling ID:");
                     int avdId = scanner.nextInt();
-                    Avdeling avdelingMedId = avdelingDAO.finnAvdelingMedId(avdId);
-                    if (avdelingMedId != null) {
-                        System.out.println(avdelingMedId);
-                    } else {
-                        System.out.println("Fant ingen avdeling med ID " + avdId);
-                    }
+//                    Avdeling avdelingMedId = avdelingDAO.finnAvdelingMedId(avdId).skrivUt();
+                    avdelingDAO.finnAvdelingMedId(avdId).skrivUt();;
+//                    if (avdelingMedId != null) {
+//                        System.out.println(avdelingMedId);
+//                    } else {
+//                        System.out.println("Fant ingen avdeling med ID " + avdId);
+//                    }
                     break;
                 case 7:
+                	System.out.println("Skriv inn avdeling ID:");
+                    int avdId2 = scanner.nextInt();
+                    avdelingDAO.finnAvdelingMedId(avdId2).skrivUtMedAnsatte();;
+                    break;
+                case 8:
+                	System.out.println("Skriv inn ID til den ansatte som skal oppdateres:");
+                    int oppdaterId2 = scanner.nextInt();
+                    Ansatt oppdaterAnsatt2 = ansattDAO.finnAnsattMedId(oppdaterId2);
+                	
+                case 9:
                 	System.out.println("avslutter...");
                 	fortsett = false;
                 	System.out.println("programmet er avsluttet.");
@@ -143,173 +162,6 @@ public class Main {
                     }
         }
         scanner.close();
-		
-//		while (menyvalg != 6) {
-//            menyvalg = hovedmeny();
-//            
-//            switch (menyvalg) {
-//                case 1:
-//                    sokAnsattMedId(ansattDAO);
-//                    break;
-//                case 2:
-//                    sokAnsattMedBrukernavn(ansattDAO);
-//                    break;
-//                case 3:
-//                    listAlleAnsatte(ansattDAO);
-//                    break;
-//                case 4:
-//                    oppdaterAnsatt(ansattDAO);
-//                    break;
-//                case 5:
-//                    leggTilAnsatt(ansattDAO);
-//                    break;
-//                case 6:
-//                    System.out.println("Avslutter programmet...");
-//                    break;
-//                default:
-//                    System.out.println("Ugyldig valg, prøv igjen.");
-//                    break;
-//            }
-//        }
-//    }
-//    
-//    public static int hovedmeny() {
-//        System.out.println("\n--- HOVEDMENY ---");
-//        System.out.println("1. Søk etter ansatt på ansatt-id");
-//        System.out.println("2. Søk etter ansatt på brukernavn");
-//        System.out.println("3. Utlisting av alle ansatte");
-//        System.out.println("4. Oppdater en ansatt sin stilling og/eller lønn");
-//        System.out.println("5. Legg inn en ny ansatt");
-//        System.out.println("6. Avslutt");
-//        System.out.print("\nVelg et menyvalg: ");
-//        
-//        return Integer.parseInt(System.console().readLine());
-//    }
-//    
-//    public static void sokAnsattMedId(AnsattDAO ansattDAO) {
-//        System.out.print("\nSkriv inn ansatt-id: ");
-//        int id = Integer.parseInt(System.console().readLine());
-//        
-//        Ansatt ansatt = ansattDAO.finnAnsattMedId(id);
-//        
-//        if (ansatt != null) {
-//            System.out.println("\nAnsatt funnet: " + ansatt);
-//        } else {
-//            System.out.println("\nIngen ansatt funnet med id " + id);
-//        }
-//    }
-//    
-//    public static void sokAnsattMedBrukernavn(AnsattDAO ansattDAO) {
-//        System.out.print("\nSkriv inn brukernavn (initialer): ");
-//        String brukernavn = System.console().readLine();
-//        
-//        Ansatt ansatt = ansattDAO.finnAnsattMedbrukernavn(brukernavn);
-//        
-//        if (ansatt != null) {
-//            System.out.println("\nAnsatt funnet: " + ansatt);
-//        } else {
-//            System.out.println("\nIngen ansatt funnet med brukernavn " + brukernavn);
-//        }
-//    }
-//    
-//    public static void listAlleAnsatte(AnsattDAO ansattDAO) {
-//        List<Ansatt> ansatte = ansattDAO.finnAlleAnsatte();
-//        
-//        System.out.println("\n--- LISTE OVER ALLE ANSATTE ---");
-//        
-//        for (Ansatt ansatt : ansatte) {
-//            System.out.println(ansatt);
-//        }
-//    }
-//    
-//    public void oppdaterAnsatt() {
-//        System.out.println("Oppdater ansatt sin stilling og/eller lønn");
-//
-//        int ansattId = Integer.parseInt(getUserInput("Skriv inn ansatt-id: "));
-//        Ansatt ansatt = ansattDAO.finnAnsattMedId(ansattId);
-//
-//        if (ansatt == null) {
-//            System.out.println("Ansatt med id " + ansattId + " finnes ikke i systemet.");
-//            return;
-//        }
-//
-//        String stilling = getUserInput("Skriv inn ny stilling (trykk enter for å beholde eksisterende stilling): ");
-//        if (!stilling.equals("")) {
-//            ansatt.setStilling(stilling);
-//        }
-//
-//        String lonnString = getUserInput("Skriv inn ny lønn (trykk enter for å beholde eksisterende lønn): ");
-//        if (!lonnString.equals("")) {
-//            double lonn = Double.parseDouble(lonnString);
-//            ansatt.setLonn(lonn);
-//        }
-//
-//        ansattDAO.oppdaterAnsatt(ansatt);
-//        System.out.println("Ansatt med id " + ansattId + " er oppdatert.");
-//    }
-//
-//    public void leggTilAnsatt() {
-//        System.out.println("Legg til ny ansatt");
-//
-//        String fornavn = getUserInput("Skriv inn fornavn: ");
-//        String etternavn = getUserInput("Skriv inn etternavn: ");
-//        String stilling = getUserInput("Skriv inn stilling: ");
-//        double lonn = Double.parseDouble(getUserInput("Skriv inn lønn: "));
-//
-//        Ansatt ansatt = new Ansatt(fornavn, etternavn, stilling, lonn);
-//        ansattDAO.leggTilAnsatt(ansatt);
-//        System.out.println("Ny ansatt lagt til med id " + ansatt.getId());
-//    }
-		
-		
-//		while (menyvalg != 6) {
-//            menyvalg = meny();
-//            
-//            switch (menyvalg) {
-//                case 1:
-//                	int input = scanner.nextInt();
-//                    Ansatt an = ansattDAO.finnAnsattMedId(input);
-//                    an.skrivUt();
-//                    break;
-//                case 2:
-//                	String stringinput = scanner.nextLine();
-//                	Ansatt an2 = ansattDAO.finnAnsattMedbrukernavn(stringinput);
-//                	an2.skrivUt();
-//                    break;
-//                case 3:
-//                	List<Ansatt> an3 = ansattDAO.finnAlleAnsatte();
-//                	for (Ansatt ansatt : an3) {
-//                        System.out.println(ansatt);
-////                	an3.skrivUt();
-//                    break;
-//                case 4:
-//                	Ansatt an4 = scanner.
-//                    ansattDAO.oppdaterAnsatt(ansattInput);
-//                    int id = Integer.parseInt(System.console();
-//                    break;
-//                case 5:
-//                    leggTilNyAnsatt(ansattDAO);
-//                    break;
-//                case 6:
-//                    System.out.println("Avslutter programmet...");
-//                    break;
-//                default:
-//                    System.out.println("Ugyldig valg, prøv igjen.");
-//                    break;
-//            }
-//        }
-//		 public static int meny() {
-//		        System.out.println("\n--- HOVEDMENY ---");
-//		        System.out.println("1. Søk etter ansatt på ansatt-id");
-//		        System.out.println("2. Søk etter ansatt på brukernavn");
-//		        System.out.println("3. Utlisting av alle ansatte");
-//		        System.out.println("4. Oppdater en ansatt sin stilling og/eller lønn");
-//		        System.out.println("5. Legg inn en ny ansatt");
-//		        System.out.println("6. Avslutt");
-//		        System.out.print("\nVelg et menyvalg: ");
-//		        
-//		        return Integer.parseInt(System.console().readLine());
-
 
 	}
 }
